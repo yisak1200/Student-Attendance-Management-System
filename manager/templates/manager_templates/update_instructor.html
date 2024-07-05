@@ -1,0 +1,105 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Update Instructor</h1>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-body">
+                    <!-- <h5 class="card-title text-center">Add Department</h5> -->
+                    <div class="mb-3">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <div style="text-align: center"
+                                class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}"
+                                style="white-space: pre-line">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" name="username" value="{{ select_user.username }}" class="form-control"
+                                placeholder="Username" style="margin-top: 20px;" />
+                            <!-- Display username error message -->
+                            {% if messages and 'username' in messages %}
+                            <p class="text-danger">{{ messages.username }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="first_name" value="{{ select_user.first_name }}" class="form-control"
+                                placeholder="First Name" style="margin-top: 20px;" />
+                            <!-- Display first name error message -->
+                            {% if messages and 'first_name' in messages %}
+                            <p class="text-danger">{{ messages.first_name }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="last_name" value="{{ select_user.last_name }}" class="form-control"
+                                placeholder="Last Name" style="margin-top: 20px;" />
+                            <!-- Display last name error message -->
+                            {% if messages and 'last_name' in messages %}
+                            <p class="text-danger">{{ messages.last_name }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="email" value="{{ select_user.email }}" class="form-control"
+                                placeholder="Email" style="margin-top: 20px;" />
+                            <!-- Display email error message -->
+                            {% if messages and 'email' in messages %}
+                            <p class="text-danger">{{ messages.email }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <!-- <label for="last-name" class="form-label">Host Address</label> -->
+                            <input type="text" name="phone_number" value="{{select_user.phone_number}}"
+                                class="form-control" placeholder="Phone Number" style="margin-top: 20px;" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Department</label><br>
+                            <select name="department" id="id_department" class="form-control" multiple>
+                                {% for department in departments %}
+                                <option value="{{department.id}}">{{department.department_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" name="password" value="{{form_data.password}}" class="form-control"
+                                placeholder="Password" style="margin-top: 20px;" />
+
+                            {% if messages and 'password' in messages %}
+                            <p class="text-danger">{{ messages.password }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" name="confirm_password" value="{{form_data.confirm_password}}"
+                                class="form-control" placeholder="Confirm Password" style="margin-top: 20px;" />
+                            <!-- Display confirm password error message -->
+                            {% if messages and 'confirm_password' in messages %}
+                            <p class="text-danger">{{ messages.confirm_password }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" name="action" value="give_access" class="btn btn-success"
+                                id="give-access">
+                                <i class="bi bi-floppy"></i>
+                                <span>Add Instructor</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Add Batch</h1>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-body">
+                    <!-- <h5 class="card-title text-center">Add Department</h5> -->
+                    <div class="mb-3">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <div style="text-align: center"
+                                class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}"
+                                style="white-space: pre-line">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <!-- <label for="last-name" class="form-label">Host Address</label> -->
+                            <input type="number" min="1" name="year" value="{{year}}" class="form-control"
+                                placeholder="Year" style="margin-top: 20px;" />
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" name="action" value="give_access" class="btn btn-success"
+                                id="give-access">
+                                <i class="bi bi-floppy"></i>
+                                <span>Submit</span>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+<div class="pagetitle">
+    <h1>List Of Batch</h1>
+
+</div><!-- End Page Title -->
+
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <div class="card bg-glass">
+            {% if message_error %}
+            <div style="text-align: center" class="alert alert-danger" style="white-space: pre-line">
+                {{ message_error}}
+            </div>
+            {% elif message_succ %}
+            <div style="text-align: center" class="alert alert-success" style="white-space: pre-line">
+                {{ message_succ }}
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="card-body">
+        <p class="card-title"></p>
+        <div class="table-responsive">
+            <table class="table table-hover" id="dataTables-example" width="50%">
+                <thead>
+                    <tr style="font-weight: normal; font-size: smaller;">
+                        <th>Year</th>
+                        <th>Edit</th>  
+                        <th>Remove</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for batch in batches %}
+                    <tr>
+                        <td>{{ batch.year }}</td>
+                        <td><a href="{% url 'update_batch' batch.id %}" class="btn btn-outline-info btn-rounded"><i class="bi bi-pencil-square"></i></a></td>
+                        <td><a href="{% url 'remove_batch' batch.id %}" class="btn btn-outline-danger btn-rounded"><i class="bi bi-trash3"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</main>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Update Batch</h1>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-body">
+                    <!-- <h5 class="card-title text-center">Add Department</h5> -->
+                    <div class="mb-3">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <div style="text-align: center"
+                                class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}"
+                                style="white-space: pre-line">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <!-- <label for="last-name" class="form-label">Host Address</label> -->
+                            <input type="number" min="1" name="year" value="{{select_batch.year}}" class="form-control"
+                                placeholder="Year" style="margin-top: 20px;" />
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" name="action" value="give_access" class="btn btn-success"
+                                id="give-access">
+                                <i class="bi bi-pencil-square"></i>
+                                <span>Update</span>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+</main>
+{% endblock %}

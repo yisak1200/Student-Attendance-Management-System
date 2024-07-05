@@ -1,0 +1,126 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Add Student</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-body">
+                    <div class="mb-3">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div
+                            class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}">
+                            <p>{{ message }}</p>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" name="username" value="{{ form_data.username }}" class="form-control"
+                                placeholder="Username" />
+                        </div>
+                        <!-- Display username error message -->
+                        {% if messages and 'username' in messages %}
+                        <p class="text-danger">{{ messages.username }}</p>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <input type="text" name="first_name" value="{{ form_data.first_name }}" class="form-control"
+                                placeholder="First Name" />
+                        </div>
+                        <!-- Display first name error message -->
+                        {% if messages and 'first_name' in messages %}
+                        <p class="text-danger">{{ messages.first_name }}</p>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <input type="text" name="last_name" value="{{ form_data.last_name }}" class="form-control"
+                                placeholder="Last Name" />
+                        </div>
+                        <!-- Display last name error message -->
+                        {% if messages and 'last_name' in messages %}
+                        <p class="text-danger">{{ messages.last_name }}</p>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <input type="text" name="email" value="{{ form_data.email }}" class="form-control"
+                                placeholder="Email" />
+                        </div>
+                        <!-- Display email error message -->
+                        {% if messages and 'email' in messages %}
+                        <p class="text-danger">{{ messages.email }}</p>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <input type="text" name="phone_number" value="{{form_data.phone_number}}"
+                                class="form-control" placeholder="Phone Number" />
+                        </div>
+
+                    <div class="mb-3">
+                        <select name="section" class="form-select" id="database-users-select">
+                            <option disabled selected>Select Section</option>
+                            {% for section in sections %}
+                            <option value="{{section.id}}">Section ({{section.name}}) Department ({{section.department.department_name}}) Batch ({{section.batch.year}})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <select name="devision" class="form-select" id="database-users-select">
+                            <option disabled selected>Select Devision</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Extension">Extension</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <select name="programme" class="form-select" id="database-users-select">
+                            <option disabled selected>Select programme</option>
+                            <option value="Degree">Degree</option>
+                            <option value="Masters">Masters</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <select name="batch" class="form-select" id="database-users-select">
+                            <option disabled selected>Select Batch</option>
+                            {% for batch in batches %}
+                            <option value="{{batch.id}}">{{batch.year}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                        <div class="mb-3">
+                            <input type="password" name="password" value="{{form_data.password}}" class="form-control"
+                                placeholder="Password" />
+                        </div>
+                        <!-- Display password error message -->
+                        {% if messages and 'password' in messages %}
+                        <p class="text-danger">{{ messages.password }}</p>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <input type="password" name="confirm_password" value="{{form_data.confirm_password}}"
+                                class="form-control" placeholder="Confirm Password" />
+                        </div>
+                        {% if messages and 'confirm_password' in messages %}
+                        <p class="text-danger">{{ messages.confirm_password }}</p>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <button type="submit" name="action" value="give_access" class="btn btn-success"
+                                id="give-access">
+                                <i class="bi bi-floppy"></i>
+                                <span>Add Student</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main><!-- End #main -->
+{% endblock %}

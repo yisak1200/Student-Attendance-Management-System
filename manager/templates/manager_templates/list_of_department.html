@@ -1,0 +1,62 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>List Of Departments</h1>
+
+    </div><!-- End Page Title -->
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card bg-glass">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div style="text-align: center"
+                        class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}"
+                        style="white-space: pre-line">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </ul>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="card-body">
+            <p class="card-title"></p>
+            <div class="table-responsive">
+                <table class="table table-hover" id="dataTables-example" width="100%">
+                    <thead>
+                        <tr style="font-weight: normal; font-size: smaller;">
+                            <th>Department Name</th>
+                            <th>Description</th>
+                            <th>Department Registered Date</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for departments in list_of_department %}
+                        <tr>
+                            <td>{{ departments.department_name }}</td>
+                            <td>{{ departments.description|truncatewords:10 }}</td>
+                            <td>{{ departments.department_register_date }}</td>
+                            <td><a href="{% url 'update_departemnt' departments.id  %}" class="btn btn-outline-info btn-rounded"><i
+                                        class="bi bi-pencil-square"></i></a></td>
+                            <td><a href="{% url 'remove_confirmation_department' departments.id %}" class="btn btn-outline-danger btn-rounded"><i class="bi bi-trash3"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</main><!-- End #main -->
+
+{% endblock %}

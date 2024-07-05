@@ -1,0 +1,111 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Add Room</h1>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-body">
+                    <!-- <h5 class="card-title text-center">Add Department</h5> -->
+                    <div class="mb-3">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <div style="text-align: center"
+                                class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}"
+                                style="white-space: pre-line">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <!-- <label for="last-name" class="form-label">Host Address</label> -->
+                            <input type="number" min="1" name="room_num" value="{{room_no}}" class="form-control"
+                                placeholder="Room Number" style="margin-top: 20px;" />
+                        </div>
+                        <div class="mb-3">
+                            <!-- <label for="last-name" class="form-label">Host Address</label> -->
+                            <input type="text" min="1" name="Building" value="{{Building}}" class="form-control" placeholder="Building"
+                                style="margin-top: 20px;" />
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" name="action" value="give_access" class="btn btn-success"
+                                id="give-access">
+                                <i class="bi bi-floppy"></i>
+                                <span>Add Room</span>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+    <div class="pagetitle">
+        <h1>List Of Room</h1>
+
+    </div><!-- End Page Title -->
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card bg-glass">
+                {% if message_error %}
+                <div style="text-align: center" class="alert alert-danger" style="white-space: pre-line">
+                    {{ message_error}}
+                </div>
+                {% elif message_succ %}
+                <div style="text-align: center" class="alert alert-success" style="white-space: pre-line">
+                    {{ message_succ }}
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="card-body">
+            <p class="card-title"></p>
+            <div class="table-responsive">
+                <table class="table table-hover" id="dataTables-example" width="50%">
+                    <thead>
+                        <tr style="font-weight: normal; font-size: smaller;">
+                            <th>Room Number</th>
+                            <th>Bulding</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for room in rooms %}
+                        <tr>
+                            <td>{{room.room_no}}</td>
+                            <td>{{room.Building}}</td>
+                            <td><a href="{% url 'update_room' room.id %}" class="btn btn-outline-info btn-rounded"><i
+                                        class="bi bi-pencil-square"></i></a></td>
+                            <td><a href="#"
+                                    class="btn btn-outline-danger btn-rounded"><i class="bi bi-trash3"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+</main>
+{% endblock %}

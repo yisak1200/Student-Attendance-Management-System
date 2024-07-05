@@ -1,0 +1,67 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>List Of Instructors</h1>
+    </div><!-- End Page Title -->
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card bg-glass">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div style="text-align: center"
+                        class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}"
+                        style="white-space: pre-line">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="card-body">
+        <p class="card-title"></p>
+        <div class="table-responsive">
+            <table class="table table-hover" id="dataTables-example" width="100%">
+                <thead>
+                    <tr style="font-weight: normal; font-size: smaller;">
+                        <th>Instructor First Name</th>
+                        <th>Instructor Last Name</th>
+                        <th>Instructor Username</th>
+                        <th>Instructor Email</th>
+                        <th>Instructor Phone Number</th>
+                        <!-- <th>Instructor Department</th> -->
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instructor in instructors %}
+                    <tr>
+                        <td>{{ instructor.user.first_name }}</td>
+                        <td>{{ instructor.user.last_name}}</td>
+                        <td>{{instructor.user.username}}</td>
+                        <td>{{instructor.user.email}}</td>
+                        <td>{{instructor.phone_no}}</td>
+                        <!-- <td>{{instructor.department}}</td> -->
+                        <td><a href="#" class="btn btn-outline-info btn-rounded"><i class="bi bi-pencil-square"></i></a>
+                        </td>
+                        <td><a href="#" class="btn btn-outline-danger btn-rounded"><i class="bi bi-trash3"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+</main><!-- End #main -->
+
+{% endblock %}

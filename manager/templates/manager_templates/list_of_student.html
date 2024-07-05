@@ -1,0 +1,68 @@
+{% extends "manager_templates/base_manager.html" %}
+{% block content %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>List Of Students</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card bg-glass">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div style="text-align: center"
+                        class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}"
+                        style="white-space: pre-line">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+    <div class="card-body">
+        <p class="card-title"></p>
+        <div class="table-responsive">
+            <table class="table table-hover" id="dataTables-example" width="100%">
+                <thead>
+                    <tr style="font-weight: normal; font-size: smaller;">
+                        <th>Full Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Section</th>
+                        <th>Devision</th>
+                        <th>Programme</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.user.first_name }}</td>
+                        <td>{{ student.user.last_name}}</td>
+                        <td>{{student.user.email}}</td>
+                        <td>{{student.phone_no}}</td>
+                        <td>Section ({{student.section.name}}) Department ({{student.section.department.department_name}}) Batch ({{student.section.batch.year}})</td>
+                        <td>{{student.devision}}</td>
+                        <td>{{student.programme}}</td>
+                        <td><i><a href="#" class="btn btn-outline-info btn-rounded"><i class="bi bi-pencil-square"></i></a>
+                        </td>
+                        <td><a href="#" class="btn btn-outline-danger btn-rounded"><i class="bi bi-trash3"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+</main><!-- End #main -->
+
+{% endblock %}
